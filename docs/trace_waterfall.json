@@ -1,29 +1,215 @@
 [
   {
-    "step": 1,
-    "query": "Chào bạn, bạn có thể giới thiệu quy chế học vụ cơ bản của Đại học VinUni không?",
+    "test_case_id": "TC01",
+    "iteration": 1,
     "action_type": "FINAL_ANSWER",
-    "thought": "Câu hỏi chung về quy chế học vụ, trả lời trực tiếp không cần gọi Tool.",
-    "output": "[Mock Agent Response]: Xin chào! Quy chế học vụ VinUni yêu cầu sinh viên tích lũy tối thiểu 120 tín chỉ và duy trì GPA trên 2.0 để tốt nghiệp.",
-    "latency_ms": 2845.93
+    "thought": "OpenAI đã đủ dữ liệu để trả lời mà không cần gọi thêm tool.",
+    "output": "Chào bạn! VinBus cung cấp các dịch vụ sau:\n\n1. **Vận chuyển hành khách**: Cung cấp dịch vụ xe buýt điện thân thiện với môi trường, kết nối các khu vực trong thành phố.\n2. **Đăng ký vé tháng**: Khách hàng có thể đăng ký vé tháng để tiết kiệm chi phí đi lại.\n3. **Tra cứu thông tin tuyến**: Hỗ trợ tra cứu thông tin về các tuyến xe, điểm dừng và lịch trình.\n\nNếu bạn cần thêm thông tin chi tiết về một dịch vụ cụ thể, hãy cho tôi biết!",
+    "latency_ms": 3914.94
   },
   {
-    "step": 1,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "test_case_id": "TC02",
+    "iteration": 1,
     "action_type": "TOOL_EXECUTION",
-    "tool_name": "academic_query",
-    "arguments": {
-      "student_id": "SV2026001"
+    "thought": "OpenAI chọn tool 'route_lookup' cho bước tiếp theo.",
+    "action": {
+      "tool_name": "route_lookup",
+      "arguments": {
+        "query": "V01"
+      }
     },
-    "observation": {},
-    "latency_ms": 799.12
+    "observation": {
+      "status": "SUCCESS",
+      "message": "Đã tìm thấy thông tin tuyến V01.",
+      "query": {
+        "route_id": "V01"
+      },
+      "data": {
+        "match_count": 1,
+        "recommended_route_id": "V01",
+        "routes": [
+          {
+            "route_id": "V01",
+            "route_name": "Vinhomes Ocean Park - Bến xe Mỹ Đình",
+            "origin": "Vinhomes Ocean Park",
+            "destination": "Bến xe Mỹ Đình",
+            "stops": [
+              "Vinhomes Ocean Park",
+              "Aeon Mall Long Biên",
+              "Nhà hát Lớn Hà Nội",
+              "Vincom Bà Triệu",
+              "Royal City",
+              "Bến xe Mỹ Đình"
+            ],
+            "operating_hours": "05:00-22:00",
+            "frequency_minutes": 15,
+            "monthly_pass_price_vnd": 200000,
+            "status": "ACTIVE"
+          }
+        ]
+      }
+    },
+    "llm_latency_ms": 1046.27,
+    "tool_latency_ms": 0.3
   },
   {
-    "step": 2,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "test_case_id": "TC02",
+    "iteration": 2,
     "action_type": "FINAL_ANSWER",
-    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
-    "output": "Chưa thể trả lời chi tiết do chưa nhận được dữ liệu từ MCP Server (hãy hoàn thành TODO 2.1).",
-    "latency_ms": 10.0
+    "thought": "OpenAI đã đủ dữ liệu để trả lời mà không cần gọi thêm tool.",
+    "output": "Tuyến VinBus V01 có thông tin như sau:\n\n- **Tên tuyến**: Vinhomes Ocean Park - Bến xe Mỹ Đình\n- **Điểm xuất phát**: Vinhomes Ocean Park\n- **Điểm đến**: Bến xe Mỹ Đình\n- **Các điểm dừng**:\n  1. Vinhomes Ocean Park\n  2. Aeon Mall Long Biên\n  3. Nhà hát Lớn Hà Nội\n  4. Vincom Bà Triệu\n  5. Royal City\n  6. Bến xe Mỹ Đình\n- **Giờ hoạt động**: 05:00 - 22:00\n- **Tần suất**: 15 phút/lần\n- **Giá vé tháng**: 200.000 VNĐ\n\nNếu bạn cần thêm thông tin hoặc hỗ trợ khác, hãy cho tôi biết!",
+    "latency_ms": 2277.86
+  },
+  {
+    "test_case_id": "TC03",
+    "iteration": 1,
+    "action_type": "TOOL_EXECUTION",
+    "thought": "OpenAI chọn tool 'register_monthly_pass' cho bước tiếp theo.",
+    "action": {
+      "tool_name": "register_monthly_pass",
+      "arguments": {
+        "customer_id": "KH2026001",
+        "route_id": "V02",
+        "month": "2026-10"
+      }
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "message": "Đăng ký vé tháng 2026-10 thành công cho khách hàng KH2026001 trên tuyến V02.",
+      "data": {
+        "registration_id": "PASS-KH2026001-V02-2026-10",
+        "customer_id": "KH2026001",
+        "customer_name": "Nguyễn Minh Anh",
+        "route_id": "V02",
+        "route_name": "Vinhomes Smart City - Times City",
+        "month": "2026-10",
+        "price_vnd": 200000,
+        "status": "REGISTERED"
+      }
+    },
+    "llm_latency_ms": 1746.98,
+    "tool_latency_ms": 0.35
+  },
+  {
+    "test_case_id": "TC03",
+    "iteration": 2,
+    "action_type": "FINAL_ANSWER",
+    "thought": "OpenAI đã đủ dữ liệu để trả lời mà không cần gọi thêm tool.",
+    "output": "Bạn đã đăng ký vé tháng 10/2026 thành công cho tuyến VinBus V02. Dưới đây là thông tin chi tiết:\n\n- **Mã khách hàng**: KH2026001\n- **Tên khách hàng**: Nguyễn Minh Anh\n- **Mã tuyến**: V02\n- **Tên tuyến**: Vinhomes Smart City - Times City\n- **Tháng áp dụng**: 2026-10\n- **Giá vé**: 200.000 VNĐ\n- **Trạng thái**: Đã đăng ký\n\nNếu bạn cần thêm thông tin gì khác, hãy cho tôi biết!",
+    "latency_ms": 1884.96
+  },
+  {
+    "test_case_id": "TC04",
+    "iteration": 1,
+    "action_type": "TOOL_EXECUTION",
+    "thought": "OpenAI chọn tool 'route_lookup' cho bước tiếp theo.",
+    "action": {
+      "tool_name": "route_lookup",
+      "arguments": {
+        "query": "Vinhomes Ocean Park",
+        "destination": "Vincom Bà Triệu"
+      }
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "message": "Đã tìm thấy 1 tuyến phù hợp; đề xuất tuyến V01.",
+      "query": {
+        "origin": "Vinhomes Ocean Park",
+        "destination": "Vincom Bà Triệu"
+      },
+      "data": {
+        "match_count": 1,
+        "recommended_route_id": "V01",
+        "routes": [
+          {
+            "route_id": "V01",
+            "route_name": "Vinhomes Ocean Park - Bến xe Mỹ Đình",
+            "origin": "Vinhomes Ocean Park",
+            "destination": "Bến xe Mỹ Đình",
+            "stops": [
+              "Vinhomes Ocean Park",
+              "Aeon Mall Long Biên",
+              "Nhà hát Lớn Hà Nội",
+              "Vincom Bà Triệu",
+              "Royal City",
+              "Bến xe Mỹ Đình"
+            ],
+            "operating_hours": "05:00-22:00",
+            "frequency_minutes": 15,
+            "monthly_pass_price_vnd": 200000,
+            "status": "ACTIVE"
+          }
+        ]
+      }
+    },
+    "llm_latency_ms": 1632.04,
+    "tool_latency_ms": 2.03
+  },
+  {
+    "test_case_id": "TC04",
+    "iteration": 2,
+    "action_type": "TOOL_EXECUTION",
+    "thought": "OpenAI chọn tool 'register_monthly_pass' cho bước tiếp theo.",
+    "action": {
+      "tool_name": "register_monthly_pass",
+      "arguments": {
+        "customer_id": "KH2026002",
+        "route_id": "V01",
+        "month": "2026-10"
+      }
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "message": "Đăng ký vé tháng 2026-10 thành công cho khách hàng KH2026002 trên tuyến V01.",
+      "data": {
+        "registration_id": "PASS-KH2026002-V01-2026-10",
+        "customer_id": "KH2026002",
+        "customer_name": "Trần Hoàng Nam",
+        "route_id": "V01",
+        "route_name": "Vinhomes Ocean Park - Bến xe Mỹ Đình",
+        "month": "2026-10",
+        "price_vnd": 200000,
+        "status": "REGISTERED"
+      }
+    },
+    "llm_latency_ms": 1891.06,
+    "tool_latency_ms": 0.11
+  },
+  {
+    "test_case_id": "TC04",
+    "iteration": 3,
+    "action_type": "FINAL_ANSWER",
+    "thought": "OpenAI đã đủ dữ liệu để trả lời mà không cần gọi thêm tool.",
+    "output": "Bạn đã tìm thấy tuyến phù hợp từ Vinhomes Ocean Park đến Vincom Bà Triệu với mã tuyến là V01. Đồng thời, việc đăng ký vé tháng 10/2026 cho khách hàng KH2026002 cũng đã thành công. \n\nThông tin đăng ký vé tháng như sau:\n- Mã khách hàng: KH2026002\n- Tên khách hàng: Trần Hoàng Nam\n- Mã tuyến: V01\n- Tên tuyến: Vinhomes Ocean Park - Bến xe Mỹ Đình\n- Tháng áp dụng: 2026-10\n- Giá vé: 200.000 VNĐ\n- Trạng thái: Đã đăng ký\n\nNếu bạn cần thêm thông tin gì khác, hãy cho tôi biết!",
+    "latency_ms": 2476.23
+  },
+  {
+    "test_case_id": "TC05",
+    "iteration": 1,
+    "action_type": "TOOL_EXECUTION",
+    "thought": "OpenAI chọn tool 'route_lookup' cho bước tiếp theo.",
+    "action": {
+      "tool_name": "route_lookup",
+      "arguments": {
+        "query": "V999"
+      }
+    },
+    "observation": {
+      "status": "NOT_FOUND",
+      "message": "Không tìm thấy tuyến VinBus có mã 'V999'.",
+      "query": {
+        "route_id": "V999"
+      }
+    },
+    "llm_latency_ms": 994.12,
+    "tool_latency_ms": 0.05
+  },
+  {
+    "test_case_id": "TC05",
+    "iteration": 2,
+    "action_type": "FINAL_ANSWER",
+    "thought": "OpenAI đã đủ dữ liệu để trả lời mà không cần gọi thêm tool.",
+    "output": "Tuyến VinBus với mã 'V999' không tồn tại. Bạn có thể kiểm tra lại mã tuyến hoặc cung cấp thông tin khác để tôi hỗ trợ bạn tốt hơn.",
+    "latency_ms": 923.78
   }
 ]

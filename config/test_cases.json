@@ -1,0 +1,47 @@
+[
+  {
+    "id": "TC01",
+    "type": "direct_query",
+    "question": "Chào bạn, VinBus có thể hỗ trợ tôi những dịch vụ gì?",
+    "expected_behavior": "Agent giới thiệu dịch vụ chung và không gọi Tool.",
+    "expected_tools": [],
+    "expected_statuses": [],
+    "complexity": "Low"
+  },
+  {
+    "id": "TC02",
+    "type": "single_tool_query",
+    "question": "Hãy tra cứu lộ trình, các điểm dừng và giờ hoạt động của tuyến VinBus V01.",
+    "expected_behavior": "Agent gọi route_lookup với query V01 và tổng hợp thông tin từ Observation.",
+    "expected_tools": ["route_lookup"],
+    "expected_statuses": ["SUCCESS"],
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC03",
+    "type": "monthly_pass_registration",
+    "question": "Tôi là khách hàng KH2026001. Hãy đăng ký vé tháng 10/2026 cho tuyến VinBus V02 giúp tôi.",
+    "expected_behavior": "Agent gọi register_monthly_pass với KH2026001, V02 và tháng 2026-10.",
+    "expected_tools": ["register_monthly_pass"],
+    "expected_statuses": ["SUCCESS"],
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC04",
+    "type": "multi_step_reasoning",
+    "question": "Tôi cần đi từ Vinhomes Ocean Park đến Vincom Bà Triệu. Hãy tìm tuyến phù hợp, sau đó đăng ký vé tháng 10/2026 cho khách hàng KH2026002 trên tuyến được đề xuất.",
+    "expected_behavior": "Agent gọi route_lookup trước, lấy recommended_route_id từ Observation rồi gọi register_monthly_pass.",
+    "expected_tools": ["route_lookup", "register_monthly_pass"],
+    "expected_statuses": ["SUCCESS", "SUCCESS"],
+    "complexity": "High"
+  },
+  {
+    "id": "TC05",
+    "type": "edge_case_handling",
+    "question": "Hãy tra cứu lộ trình và các điểm dừng của tuyến VinBus V999.",
+    "expected_behavior": "Agent gọi route_lookup, nhận NOT_FOUND và phản hồi chính xác mà không bịa dữ liệu.",
+    "expected_tools": ["route_lookup"],
+    "expected_statuses": ["NOT_FOUND"],
+    "complexity": "Medium"
+  }
+]
